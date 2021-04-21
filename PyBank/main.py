@@ -16,9 +16,7 @@ with open(csvpath) as csvfile:
 
     #read header
     csvheader = next(csvreader)
-    print(f"csv header: {csvheader}")
     
-
 
 #Calculate the changes in "profit/loses" over the entire period.
 #Find the average of those changes.
