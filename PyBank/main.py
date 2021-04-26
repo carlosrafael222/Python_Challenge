@@ -6,68 +6,68 @@ import csv
 #create a path to the csv file.
 csvpath = os.path.join( ".", "resources","budget_data.csv")
 
-# # #create lists.
-# Total_months = []
-# Net_total = []
-# change = []
+#create lists.
+total_months = []
+total = []
+change = []
 
-# # #open csv file.
+ #open csv file.
 with open(csvpath, newline = '') as csvfile:
-
     csvreader = csv.reader(csvfile, delimiter=",")
-
     print(csvreader)
 
-
     for row in csvreader:
-        print(row)
-
-# # print(csvreader)
-# # #     for row in reader:
-# # #         Total_months.append(row[0])
-# # #         Net_total.append(row[1])
-# # # #read header
-# # csv_header = next(csvreader)
-# # print(f"CSV Header: {csv_header}")
+        total_months.append(row[0])
+        total.append(row[1])
 
 
+# Print final report.
+print("\n")
+print("Financial Analysis")
+print("-------------------------")
 
-# #Calculate the changes in "profit/loses" over the entire period.
-# #Find the average of those changes.
-
-
-# # #print title for report, begin report here.
-# print("\n")
-# print("Financial Analysis")
-# print("-------------------------")
-# # Total_months.pop(0)
-# # months = len(Total_months)
-# # print("Total Months:" + str(months))
-# # Net_total.pop(0)
-
-# # inte_totalr = list(map(int, Net_total))
-# # total = sum (inte_totalr)
-# # print("Total:" + str(total))
-
-# # for i in range (1, len(inte_totalr)):
-# #     change.append(float(inte_totalr[i]-inte_totalr[i-1]))
-# #     average_change = round(sum(change)/ len(change), 2)
-
-# # print("Average change: $" + str(average_change))
-
-# # min_value = min(change)
-# # max_value = max(change)
-# # max_date = str(Total_months[change.index(max_value)+1])
-# # min_date = str(Total_months[change.index(min_value)+1])
-# # print ("Greatest increase in profits:" + str(max_date) + "$" + str(max_value))
-# # print (("Greatest decreate in profits:" + str(min_date) + "$" + str(min_value)))
-# print("-------------------------")
-# print("\n")
-# # for row in csvreader:
-# #     print(row)
+# Print The total number of months included in the dataset
+total_months.pop(0)
+months = len(total_months)
+print(f"Total Months:{months}")
+total.pop(0)
 
 
-# #print Greatest Increase in Profits, include the date and amount  over the entire period.
-# #Print Greatest Decrease in losses, include the date and amount of the entire period.
+#The net total amount of "Profit/Losses" over the entire period
+net_total = list(map(int, total))
+total = sum (net_total)
+print(f"Total:{total}")
 
-# #Export final Script to text file.
+
+# Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
+for i in range(1, len(net_total)):
+    change.append(float(net_total[i]-net_total[i-1]))
+    average_change = round(sum(change)/ len(change), 2)
+
+print(f"Average change:$ {average_change}")
+
+min_value = min(change)
+max_value = max(change)
+max_date = str(total_months[change.index(max_value)+1])
+min_date = str(total_months[change.index(min_value)+1])
+print (f"Greatest increase in profits: {max_date} $ {max_value}")
+print (f"Greatest decreate in profits: {min_date} $ {min_value}")
+print("-------------------------")
+print("\n")
+
+# Export final Script to text file.
+output_path = os.path.join(".", "Analysis", "budget_analysis.txt")
+
+output_path = open(output_path,"w")
+
+output_path.write("\n")
+output_path.write("financial Analysis\n")
+output_path.write("----------------------------\n")
+output_path.write(f"Total Months {months}\n")
+output_path.write(f"Total:{total}\n")
+output_path.write(f"Average change ${average_change}\n")
+output_path.write(f"Greatest increase in profits: {max_date} $ {max_value}\n")
+output_path.write(f"Greatest decrease in profits: {min_date} $ {min_value}\n")
+output_path.write("-------------------------\n")
+
+output_path.close()
