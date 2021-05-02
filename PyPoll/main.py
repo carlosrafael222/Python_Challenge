@@ -1,7 +1,7 @@
  #import modules.
 import os
 import csv
-from os.path import join
+
 
 #create a path to the csvfile.
 csvpath = os.path.join( ".", "resources", "election_data.csv")
@@ -46,18 +46,19 @@ else:
             winner = "Li"
     else:
         if khanvotes > livotes:
-            winner = "khan"
+            winner = "Khan"
         else:
             winner = "li"
 
 num_votes.pop(0)
 totalvotes = len(num_votes)
 
+
 #percentage of votes for each candidate
-khanpercent = round (khanvotes/totalvotes * 100, 4)
-correypercent = round (correyvotes/totalvotes * 100, 4)
-lipercent = round (livotes/totalvotes * 100, 4)
-otoolpercent= round (otooleyvotes/totalvotes * 100, 4)
+khanpercent = round (khanvotes/totalvotes * 100)
+correypercent = round (correyvotes/totalvotes * 100)
+lipercent = round (livotes/totalvotes * 100,)
+otoolpercent= round (otooleyvotes/totalvotes * 100)
 
 #show winner
 print("Election Votes")
@@ -72,3 +73,25 @@ print("O'tooley:"+ str(otoolpercent) + "%" "(" + str(otooleyvotes) + ")")
 print("--------------------------")
 print("Winner:"+ winner)
 print("--------------------------")
+
+# Export final script to text file
+output_path = os.path.join( ".", "Analysis", "Poll_Analysis.txt")
+
+output_path = open(output_path, "w")
+
+output_path.write("\n")
+output_path.write("Election Votes")
+output_path.write("---------------------\n")
+output_path.write("Total Votes:"+ str(totalvotes))
+output_path.write("---------------------")
+output_path.write("khan:"+ str(khanpercent) + "%" "(" + str(khanvotes) + ")")
+output_path.write("Correy:"+ str(correypercent) + "%" "(" + str(correyvotes) + ")")
+output_path.write("Li:"+ str(lipercent) + "%" "(" + str(livotes) + ")")
+output_path.write("O'tooley:"+ str(otoolpercent) + "%" "(" + str(otooleyvotes) + ")")
+
+output_path.write("--------------------------")
+output_path.write("Winner:"+ winner)
+output_path.write("--------------------------")
+
+output_path.close()
+
